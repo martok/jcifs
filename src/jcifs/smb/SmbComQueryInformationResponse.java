@@ -72,5 +72,10 @@ class SmbComQueryInformationResponse extends ServerMessageBlock implements Info 
             ",lastWriteTime=" + new Date( lastWriteTime ) +
             ",fileSize=" + fileSize + "]" );
     }
+
+	@Override
+    public long getLastAccessTime() {
+        return lastWriteTime + serverTimeZoneOffset;
+    }
 }
 
