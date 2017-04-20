@@ -565,12 +565,15 @@ public final class NtlmPasswordAuthentication implements Principal, Serializable
                         ntlm.username.toUpperCase().equals( username.toUpperCase() )) {
                 if( hashesExternal && ntlm.hashesExternal ) {
                     return Arrays.equals( ansiHash, ntlm.ansiHash ) &&
+                            // tlh - add next 2 lines
+                            Arrays.equals( challenge, ntlm.challenge ) &&
+                            Arrays.equals( clientChallenge, ntlm.clientChallenge ) &&
                                 Arrays.equals( unicodeHash, ntlm.unicodeHash );
                     /* This still isn't quite right. If one npa object does not have external
                      * hashes and the other does then they will not be considered equal even
                      * though they may be.
                      */
-                } else if( !hashesExternal && password.equals( ntlm.password )) {
+		} else if( !hashesExternal && password.equals( ntlm.password )) {
                     return true;
                 }
             }

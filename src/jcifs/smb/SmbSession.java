@@ -199,7 +199,9 @@ synchronized (DOMAIN) {
         return t;
     }
     boolean matches( NtlmPasswordAuthentication auth ) {
-        return this.auth == auth || this.auth.equals( auth );
+        // tlh - return true only if ==
+        return this.auth == auth ;
+        // return this.auth == auth || this.auth.equals( auth );
     }
     synchronized SmbTransport transport() {
         if( transport == null ) {
@@ -442,10 +444,13 @@ synchronized (transport()) {
 
         netbiosName = null;
 
-        for( Enumeration e = trees.elements(); e.hasMoreElements(); ) {
-            SmbTree t = (SmbTree)e.nextElement();
-            t.treeDisconnect( inError );
-        }
+
+        //tlh - remove all elements when tree disconnected
+//        for( Enumeration e = trees.elements(); e.hasMoreElements(); ) {
+//            SmbTree t = (SmbTree)e.nextElement();
+//            t.treeDisconnect( inError );
+//        }
+        trees.removeAllElements();
 
         if( !inError && transport.server.security != ServerMessageBlock.SECURITY_SHARE ) {
             /*

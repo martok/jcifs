@@ -140,6 +140,8 @@ public class SmbTransport extends Transport implements SmbConstants {
                 ssn = (SmbSession)iter.next();
                 if( ssn.expiration < now ) {
                     ssn.logoff( false );
+                    // tlh - remove auths when done
+                    iter.remove();
                 }
             }
         }
